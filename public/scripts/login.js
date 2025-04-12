@@ -8,7 +8,6 @@ document.querySelector("#login").addEventListener("click", async () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        credentials: "include",
       };
       const url = "/api/auth/login";
       let response = await fetch(url, opts);
@@ -17,7 +16,6 @@ document.querySelector("#login").addEventListener("click", async () => {
       if (response.error) {
         alert(response.error);
       } else {
-        localStorage.setItem("token", response.token);
         location.replace("/");
       }
     } catch (error) {

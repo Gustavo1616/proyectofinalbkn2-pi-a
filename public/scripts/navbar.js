@@ -5,14 +5,13 @@ const isOnline = async () => {
   try {
     const opts = {
       method: "POST",
-      credentials: "include"
     };
     const url = "/api/auth/online";
     let response = await fetch(url, opts);
     response = await response.json();
-
-    if (response.user?.user_id) {
-      const uid = response.user.user_id;
+    console.log(response);
+    if (response.response?.user?.user_id) {
+      const uid = response.response.user.user_id;
       selector.innerHTML = `
           <a class="btn btn-success py-1 px-2 m-1" href="/profile/${uid}">Profile</a>
           <a class="btn btn-success py-1 px-2 m-1" href="/cart/${uid}">Cart</a>
@@ -24,7 +23,6 @@ const isOnline = async () => {
           try {
             await fetch("/api/auth/signout", {
               method: "GET",
-              credentials: "include"
             });
             location.replace("/");
           } catch (error) {

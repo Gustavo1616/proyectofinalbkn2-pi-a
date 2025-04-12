@@ -4,6 +4,9 @@ const setupPolicies = (policies) => async (req, res, next) => {
   try {
     if (policies.includes("PUBLIC")) return next();
     const token = req?.cookies?.token;
+    if (!token) {
+      return res.json401("JWT must be provided");
+    }
     const data = verifyToken(token);
     const { role, user_id } = data;
     if (!role || !user_id) return res.json401();

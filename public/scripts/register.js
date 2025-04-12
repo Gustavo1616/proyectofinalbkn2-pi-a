@@ -9,7 +9,6 @@ document.querySelector("#register").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-      credentials: "include"
     };
     const url = "/api/auth/register";
     if (!data.name || !data.email || !data.password) {
