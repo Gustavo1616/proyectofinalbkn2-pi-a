@@ -1,7 +1,7 @@
-🛍️ #E-commerce App
+🛍️ # E-commerce App
 Aplicación web de e-commerce desarrollada con Node.js y Express. Permite a los usuarios registrarse e iniciar sesión mediante autenticación local o con Google, explorar productos almacenados en MongoDB, y gestionar un carrito de compras.
 
-🚀 #Tecnologías utilizadas
+🚀  Tecnologías utilizadas
 Node.js + Express
 
 MongoDB + Mongoose
@@ -16,7 +16,7 @@ bcrypt para el hash de contraseñas
 
 dotenv, cookie-parser, morgan
 
-⚙️ #Instalación
+⚙️ # Instalación
 bash
 Copiar
 Editar
@@ -25,7 +25,7 @@ cd tu-repo
 npm install
 
 
-🔐 ##Funcionalidades principales
+🔐 ## Funcionalidades principales
 Registro e inicio de sesión (local y Google)
 
 Gestión de productos desde MongoDB
