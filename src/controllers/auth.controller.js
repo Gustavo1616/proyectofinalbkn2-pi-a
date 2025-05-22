@@ -22,6 +22,11 @@ const login = async (req, res) => {
   res.cookie("token", token, opts).json200(response, "Logged in");
 };
 
+const me = (req,res) =>res.json200 ({
+  email: req.user.email,
+  avatar: req.user.avatar,
+ });
+
 const online = async (req, res) => {
   if (!req.user.user_id) {
     return res.json401("User not authenticated");
@@ -42,4 +47,4 @@ const google = async (req, res) => {
   res.json200(response);
 };
 
-export { register, login, online, signout, badAuth, google };
+export { register, login, online, signout, badAuth, google, me };

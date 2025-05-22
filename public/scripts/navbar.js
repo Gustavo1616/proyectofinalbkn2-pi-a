@@ -3,13 +3,17 @@ const token = localStorage.getItem("token");
 
 const isOnline = async () => {
   try {
+    if (token) {
     const opts = {
       method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
     };
     const url = "/api/auth/online";
     let response = await fetch(url, opts);
     response = await response.json();
-    console.log(response);
     if (response.response?.user?.user_id) {
       const uid = response.response.user.user_id;
       selector.innerHTML = `
@@ -29,6 +33,7 @@ const isOnline = async () => {
             console.log(error);
           }
         });
+      }
     } else {
       selector.innerHTML = `
           <a class="btn btn-success py-1 px-2 m-1" href="/register">Register</a>

@@ -11,14 +11,11 @@ document.querySelector("#register").addEventListener("click", async () => {
       body: JSON.stringify(data),
     };
     const url = "/api/auth/register";
-    if (!data.name || !data.email || !data.password) {
-      return alert("All fields are required");
-    }
     let response = await fetch(url, opts);
     response = await response.json();
     console.log(response);
     if (response.error) {
-      alert(response.error.message || response.error);
+      alert(response.error);
     } else {
       location.replace("/login");
     }

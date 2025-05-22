@@ -1,9 +1,7 @@
-import { productsManager } from "../data/mongo/managers/manager.mongo.js";
-import { usersManager } from "../data/mongo/managers/manager.mongo.js";
-import { cartsManager } from "../data/mongo/managers/carts.mongo.js";
+import { homeViewService, profileViewService, detailsViewService, cartsViewService } from "../services/views.service.js";
 
 const homeView = async (req, res) => {
-    const product = await productsManager.readAll();
+    const product = await homeViewService();
     if (!product || product.length === 0) {
         return res.status(404).render("error", {
             title: "Error",
@@ -15,7 +13,7 @@ const homeView = async (req, res) => {
 
 const profileView = async (req, res) => {
     const { users_id } = req.params;
-    const profile = await usersManager.readById(users_id);
+    const profile = await profileViewService(users_id);
     if (!profile) {
         return res.status(404).render("error", {
             title: "Usuario no encontrado",
@@ -27,7 +25,7 @@ const profileView = async (req, res) => {
 
 const detailsView = async (req, res) => {
     const { product_id } = req.params;
-    const product = await productsManager.readById(product_id);
+    const product = await detailsViewService(product_id);
     if (!product) {
         return res.status(404).render("error", {
             title: "Producto no encontrado",
@@ -40,18 +38,18 @@ const detailsView = async (req, res) => {
     });
 };
 
-const cartsView = async (req, res) =>{
+const cartsView = async (req, res) => {
     const { user_id } = req.params;
-    const carts = await cartsManager.readProductsFromUser(user_id);
+    const carts = await cartsViewService(user_id);
 
     const total = carts.reduce((acc, item) => {
-      return acc + item.quantity * item.product.price;
+        return acc + item.quantity * item.product.price;
     }, 0);
 
     res.status(200).render("cart", { title: "CART", carts, total });
-  };
+};
 
-    
+
 
 const registerView = (req, res) => {
     res.status(200).render("register", { title: "REGISTER FORM" });

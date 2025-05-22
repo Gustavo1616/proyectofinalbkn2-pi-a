@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
-import { usersManager } from "../data/mongo/managers/manager.mongo.js";
+import { usersManager } from "../dao/index.factory.js";
 import { createHash, verifyHash } from "../helpers/hash.helper.js";
 import { createToken } from "../helpers/token.helper.js";
 
@@ -19,7 +19,6 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const data = req.body;
-
         const user = await usersManager.readBy({ email });
         if (user) {
           return done(null, null, {

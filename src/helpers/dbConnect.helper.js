@@ -2,8 +2,7 @@ import { connect } from "mongoose";
 
 const dbConnect = async (url) => {
   try {
-    connect(url);
-    console.log("mongo database connected");
+   await connect(url);
   } catch (error) {
     console.log(error);
   }
