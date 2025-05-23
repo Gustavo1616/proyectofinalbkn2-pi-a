@@ -1,6 +1,5 @@
 import { verifyToken } from "../helpers/token.helper.js";
 
-
 const setupPolicies = (policies) => async (req, res, next) => {
   try {
     if (policies.includes("PUBLIC")) return next();

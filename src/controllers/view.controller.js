@@ -1,7 +1,7 @@
-import { homeViewService, profileViewService, detailsViewService, cartsViewService } from "../services/views.service.js";
+import viewsService from "../services/views.service.js";
 
 const homeView = async (req, res) => {
-    const product = await homeViewService();
+    const product = await viewsService.homeView();
     if (!product || product.length === 0) {
         return res.status(404).render("error", {
             title: "Error",
@@ -13,7 +13,7 @@ const homeView = async (req, res) => {
 
 const profileView = async (req, res) => {
     const { users_id } = req.params;
-    const profile = await profileViewService(users_id);
+    const profile = await viewsService.profileView(users_id);
     if (!profile) {
         return res.status(404).render("error", {
             title: "Usuario no encontrado",
@@ -25,7 +25,7 @@ const profileView = async (req, res) => {
 
 const detailsView = async (req, res) => {
     const { product_id } = req.params;
-    const product = await detailsViewService(product_id);
+    const product = await viewsService.detailsView(product_id);
     if (!product) {
         return res.status(404).render("error", {
             title: "Producto no encontrado",
@@ -40,7 +40,7 @@ const detailsView = async (req, res) => {
 
 const cartsView = async (req, res) => {
     const { user_id } = req.params;
-    const carts = await cartsViewService(user_id);
+    const carts = await viewsService.cartsView(user_id);
 
     const total = carts.reduce((acc, item) => {
         return acc + item.quantity * item.product.price;
@@ -48,8 +48,6 @@ const cartsView = async (req, res) => {
 
     res.status(200).render("cart", { title: "CART", carts, total });
 };
-
-
 
 const registerView = (req, res) => {
     res.status(200).render("register", { title: "REGISTER FORM" });
@@ -59,4 +57,8 @@ const loginView = (req, res) => {
     res.status(200).render("login", { title: "LOGIN FORM" });
 };
 
-export { homeView, profileView, detailsView, cartsView, registerView, loginView };
+const verifyView = (req,res) => {
+    res.status(200).render("verify", { title: "VERIFY YOUR ACCOUNT" });
+}
+
+export { homeView, profileView, detailsView, cartsView, registerView, loginView, verifyView};

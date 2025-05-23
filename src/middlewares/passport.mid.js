@@ -4,6 +4,8 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { usersManager } from "../dao/index.factory.js";
 import { createHash, verifyHash } from "../helpers/hash.helper.js";
 import { createToken } from "../helpers/token.helper.js";
+import UserDTO from "../dto/users.dto.js";
+import sendEmailOfRegister from "../helpers/registerEmail.helper.js";
 
 const {
   SECRET,
@@ -18,7 +20,7 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        const data = req.body;
+        let data = req.body;
         const user = await usersManager.readBy({ email });
         if (user) {
           return done(null, null, {
@@ -26,15 +28,8 @@ passport.use(
             statusCode: 400,
           });
         }
-        data.password = createHash(password);
-        const response = await usersManager.createOne(data);
-        const tokenPayload = {
-          user_id: response._id,
-          email: response.email,
-          role: response.role,
-        };
-        const token = createToken(tokenPayload);
-        req.token = token;
+        const response = await usersManager.createOne(new UserDTO(data));
+        await sendEmailOfRegister({ email, verifyCode: response.verifyCode })
         done(null, response);
       } catch (error) {
         done(error);
@@ -42,6 +37,7 @@ passport.use(
     }
   )
 );
+
 passport.use(
   "login",
   new LocalStrategy(
@@ -54,6 +50,13 @@ passport.use(
             message: "Invalid credentials",
             statusCode: 401,
           });
+        }
+        const verfiyAccount = response.isVerify;
+        if (!verfiyAccount) {
+          return done(null, null, {
+            message: "Invalid credentials",
+            statusCode: 401,
+          })
         }
         const verify = verifyHash(password, response.password);
         if (!verify) {

@@ -1,8 +1,8 @@
 import crypto from "crypto";
-
+import { createHash } from "../helpers/hash.helper.js";
 const { PERSISTENCE } = process.env;
 
-class userDTO {
+class UserDTO {
     constructor(data) {
         if (PERSISTENCE !== "mongo") {
             this._id = crypto.randomBytes(12).toString("hex");
@@ -10,7 +10,7 @@ class userDTO {
         this.name = data.name;
         this.data = data.data;
         this.email = data.email;
-        this.password = data.password;
+        this.password = createHash(data.password);
         this.role = data.role || "USER";
         this.avatar = data.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
         this.isVerify = data.isVerify || false;
@@ -22,4 +22,4 @@ class userDTO {
     }
 }
 
-export default userDTO;
+export default UserDTO;

@@ -9,6 +9,7 @@ document.querySelector("#register").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
+      Credential: "include",
     };
     const url = "/api/auth/register";
     let response = await fetch(url, opts);
@@ -17,7 +18,7 @@ document.querySelector("#register").addEventListener("click", async () => {
     if (response.error) {
       alert(response.error);
     } else {
-      location.replace("/login");
+      location.replace("/verify");
     }
   } catch (error) {
     console.log(error);

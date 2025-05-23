@@ -1,11 +1,11 @@
-import { productsManager } from "../dao/index.factory.js";
+import productsRepository from "../repositories/products.repository.js";
 
 class ProductsService {
-    createOne = async (data) => await productsManager.createOne(data);
-    readAll = async (filter) => await productsManager.readAll(filter);
-    readById = async (pid) => await productsManager.readById(pid);
-    updateById = async (pid, data) => await productsManager.updateById(pid, data);
-    destroyById = async (pid) => await productsManager.destroyById(pid);
+    createOne = async (data) => await productsRepository.createOne(data);
+    readAll = async (filter) => await productsRepository.readAll(filter);
+    readById = async (pid) => await productReproductsRepositoryr.readById(pid);
+    updateById = async (pid, data) => await productsRepository.updateById(pid, data);
+    destroyById = async (pid) => await productsRepository.destroyById(pid);
 }
  
 const productsService = new ProductsService();

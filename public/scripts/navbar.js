@@ -9,6 +9,7 @@ const isOnline = async () => {
       headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          Credential:"include",
         },
     };
     const url = "/api/auth/online";

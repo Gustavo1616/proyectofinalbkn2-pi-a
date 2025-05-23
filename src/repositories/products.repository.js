@@ -1,6 +1,7 @@
 import { productsManager } from "../dao/index.factory.js";
+
 class ProductsRepository {
-    createOneService = async (data) => await productsManager.createOne(data);
+    createOneService = async (data) => await productsManager.createOne(new ProductDTO(data));
     readAllService = async (filter) => await productsManager.readAll(filter);
     readByIdService = async (pid) => await productsManager.readById(pid);
     updateByIdService = async (pid, data) => await productsManager.updateById(pid, data);

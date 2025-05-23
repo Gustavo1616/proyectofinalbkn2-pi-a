@@ -1,13 +1,14 @@
-import { addProductToCartService, readProductsFromUserService, updateQuantityService, updateStateService, removeProductFromCartService } from "../services/cart.service.js";   
+import cartsService from "../services/cart.service.js";   
+
 const addProductToCart = async (req, res) => {
     const { product_id, quantity } = req.body;
     const user_id = req.user._id;
-    const one = await addProductToCartService(product_id, user_id, quantity);
+    const one = await cartsService.addProductToCart(product_id, user_id, quantity);
     res.json201(one)
   };
   const readProductsFromUser = async (req, res) => {
     const user_id = req.user._id;
-    const all = await readProductsFromUserService(user_id);
+    const all = await cartsService.readProductsFromUser(user_id);
     if (all.length === 0) {
       res.json404()
     }
@@ -16,7 +17,7 @@ const addProductToCart = async (req, res) => {
   const updateQuantity = async (req, res) => {
     const { id } = req.params;
     const { quantity } = req.body;
-    const one = await updateQuantityService(id, quantity);
+    const one = await cartsService.updateQuantity(id, quantity);
     if (!one) {
       res.json404()
     }
@@ -26,7 +27,7 @@ const addProductToCart = async (req, res) => {
     const { id, state } = req.params;
     const states = ["reserved", "paid", "delivered"];
     if (states.includes(state)) {
-      const one = await updateStateService(id, state);
+      const one = await cartsService.updateState(id, state);
       if (one) {
         return res.json200(one)
       }
@@ -36,7 +37,7 @@ const addProductToCart = async (req, res) => {
   };
   const removeProductFromCart = async (req, res) => {
     const { id } = req.params;
-    const one = await readProductsFromUserService(id);
+    const one = await cartsService.removeProductFromCart(id);
     if (!one) {
       res.json404()
     }
