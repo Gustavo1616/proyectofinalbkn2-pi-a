@@ -1,4 +1,4 @@
-import { createToken } from "../helpers/token.helper.js";
+import { createToken, verifyToken } from "../helpers/token.helper.js";
 import { usersManager } from "../dao/index.factory.js";
 
 const register = async (req, res) => {
@@ -8,14 +8,12 @@ const register = async (req, res) => {
       user_id: user._id,
       role: user.role,
     });
-
     const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     };
-
     res.cookie("token", token, cookieOptions).status(201).json({
       status: "success",
       payload: user,
@@ -60,12 +58,24 @@ const me = (req, res) => res.json200({
   avatar: req.user.avatar,
 });
 
-const online = async (req, res) => {
-  if (!req.user.user_id) {
-    return res.json401("User not authenticated");
+const online = (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.json200({ user: null, online: false });
+    }
+    const user = verifyToken(token);
+    if (user && user.user_id) {
+      return res.json200({ user: { user_id: user.user_id }, online: true });
+    } else {
+      return res.json200({ user: null, online: false });
+    }
+  } catch (error) {
+    console.error("Error verificando token en /online:", error);
+    return res.json200({ user: null, online: false });
   }
-  res.json200({ user: req.user });
 };
+
 
 const signout = async (req, res) => {
   res.clearCookie("token").json200(null, "Signed out");
@@ -82,11 +92,10 @@ const google = async (req, res) => {
 
 const verifyAccount = async (req, res) => {
   const { email, code } = req.params
-  console.log("Verificando usuario con:", email, code);
   const user = await usersManager.readBy({ email, verifyCode: code })
-  if (!user){
-     console.log("Usuario no encontrado o código inválido");
-     return res.json401()
+  if (!user) {
+    console.log("Usuario no encontrado o código inválido");
+    res.json401()
   }
   await usersManager.updateById(user._id, { isVerify: true })
   res.json200("VERIFICADO")

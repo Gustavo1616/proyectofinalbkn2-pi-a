@@ -18,7 +18,8 @@ switch (PERSISTENCE) {
     default: {
         await dbConnect(LINK_MONGO);
         console.log("mongo database connected");
-        const { usersManager, productsManager, cartsManager } = await import("./mongo/managers/manager.mongo.js");
+        const { usersManager, productsManager } = await import("./mongo/managers/manager.mongo.js");
+        const { cartsManager} = await import("./mongo/managers/carts.mongo.js");
         dao = { productsManager, usersManager, cartsManager };
     }
         break;

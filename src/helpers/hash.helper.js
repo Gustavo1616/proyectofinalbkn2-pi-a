@@ -1,6 +1,5 @@
 import { genSaltSync, hashSync, compareSync } from "bcrypt";
 
-
 function createHash(password) {
   const salt = genSaltSync(10);
   const hashPassword = hashSync(password, salt);
@@ -8,8 +7,8 @@ function createHash(password) {
 }
 
 function verifyHash(password, mongoPassword) {
-  const verify = compareSync(password, mongoPassword);
-  return verify;
+  const result = compareSync(password, mongoPassword);
+  return result;
 }
 
 export { createHash, verifyHash };

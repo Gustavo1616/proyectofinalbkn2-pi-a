@@ -2,7 +2,7 @@ import jsonwebtoken from "jsonwebtoken";
 
 const createToken = (data) => {
   try {
-    const token = jsonwebtoken.sign(data, process.env.SECRET, {
+    const token = jsonwebtoken.sign(data, process.env.JWT_SECRET, {
       expiresIn: 60 * 60 * 24 * 7,
     });
     return token;
@@ -14,7 +14,7 @@ const createToken = (data) => {
 
 const verifyToken = (token) => {
   try {
-    const data = jsonwebtoken.verify(token, process.env.SECRET);
+    const data = jsonwebtoken.verify(token, process.env.JWT_SECRET);
     return data;
   } catch (error) {
     error.statusCode = 401;
@@ -22,4 +22,4 @@ const verifyToken = (token) => {
   }
 };
 
-export { createToken, verifyToken }
+export { createToken, verifyToken };

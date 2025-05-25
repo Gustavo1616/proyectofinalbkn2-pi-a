@@ -10,8 +10,8 @@ class ViewsRouter extends CustomRouter {
   init = () => {
     this.read("/", ["PUBLIC"], homeView);
     this.read("/profile/:users_id",["PUBLIC"],  profileView);
-    this.read("/products/:product_id",["PUBLIC"],  detailsView);
-    this.read("/carts/:users_id",["PUBLIC"] ,cartsView);
+    this.read("/product/:product_id",["PUBLIC"],  detailsView);
+    this.read("/cart/:user_id",["USER", "ADMIN"] ,cartsView);
     this.read("/register", ["PUBLIC"], registerView);
     this.read("/login", ["PUBLIC"], loginView);
     this.read("/verify", ["USER"], verifyView);

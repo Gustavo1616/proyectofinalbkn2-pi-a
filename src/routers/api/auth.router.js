@@ -22,7 +22,7 @@ class AuthRouter extends CustomRouter {
       passportCb("login"),
       login
     );
-    this.create("/online", ["USER", "ADMIN"], online);
+    this.read("/online", ["PUBLIC"], online);
     this.read("/signout", ["USER", "ADMIN"], signout);
     this.read("/bad-auth", ["PUBLIC"], badAuth);
     this.read(

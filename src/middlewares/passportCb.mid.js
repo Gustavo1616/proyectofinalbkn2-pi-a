@@ -7,7 +7,7 @@ const passportCb = (strategy) => {
         return next(err);
       }
       if (!user) {
-        const error = new Error(info.message || "Bad auth from cb");
+        const error = new Error(info?.message || "Bad auth from cb");
         error.statusCode = info.statusCode || 401;
         return next(error);
       }

@@ -23,13 +23,13 @@ passport.use(
         let data = req.body;
         const user = await usersManager.readBy({ email });
         if (user) {
-          return done(null, null, {
+          return done(null, false, {
             message: "Email already in use",
             statusCode: 400,
           });
         }
         const response = await usersManager.createOne(new UserDTO(data));
-        await sendEmailOfRegister({ email, verifyCode: response.verifyCode })
+        await sendEmailOfRegister({ email, verifyCode: response.verifyCode });
         done(null, response);
       } catch (error) {
         done(error);
@@ -37,6 +37,7 @@ passport.use(
     }
   )
 );
+
 
 passport.use(
   "login",
@@ -46,21 +47,24 @@ passport.use(
       try {
         const response = await usersManager.readBy({ email });
         if (!response) {
-          return done(null, null, {
+          console.log("No user found for email:", email);
+          return done(null, false, {
             message: "Invalid credentials",
             statusCode: 401,
           });
         }
         const verfiyAccount = response.isVerify;
         if (!verfiyAccount) {
-          return done(null, null, {
+          console.log("User found but not verified:", email);
+          return done(null, false, {
             message: "Invalid credentials",
             statusCode: 401,
-          })
+          });
         }
         const verify = verifyHash(password, response.password);
         if (!verify) {
-          return done(null, null, {
+          console.log("Invalid password for user:", email);
+          return done(null, false, {
             message: "Invalid credentials",
             statusCode: 401,
           });
@@ -72,8 +76,10 @@ passport.use(
         };
         const token = createToken(data);
         req.token = token;
+
         done(null, response);
       } catch (error) {
+        console.log("Error in login strategy:", error);
         done(error);
       }
     }

@@ -8,7 +8,7 @@ document.querySelector("#login").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-      creddential: "include",
+      credentials: "include",
     };
     const url = "/api/auth/login";
     let response = await fetch(url, opts);
@@ -18,6 +18,7 @@ document.querySelector("#login").addEventListener("click", async () => {
       alert(response.error);
     } else {
       localStorage.setItem("token", response.token);
+      document.cookie = `token=${response.token}; path=/; max-age=${60 * 60 * 24 * 7}`;
       location.replace("/");
     }
   } catch (error) {
