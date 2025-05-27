@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "a4d5a0b3c56695a8dc5ee64d",
+    "name": "gustavo",
+    "email": "gustmaca@gmail.com",
+    "password": "$2b$10$JWpmIp1usgcO8XDYd3Ljj.KnSMb/wS.h8o7HWe16giw8UazDjazk2",
+    "role": "USER",
+    "photo": "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    "isVerify": true,
+    "verifyCode": "e3ecb488450a3b4c707c029a"
+  }
+]

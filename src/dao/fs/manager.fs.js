@@ -4,19 +4,29 @@ class FileManager {
   constructor(path) {
     this.path = path;
   }
-
   async _readFile() {
     try {
       const data = await fs.readFile(this.path, "utf-8");
+      if (!data.trim()) {
+        await fs.writeFile(this.path, "[]");
+        return [];
+      }
       return JSON.parse(data);
     } catch (error) {
       if (error.code === "ENOENT") {
         await fs.writeFile(this.path, "[]");
         return [];
-      } else {
+      }
+      else if (error instanceof SyntaxError) {
+        throw new Error(`Error: Archivo de datos corrupto en ${this.path} - JSON inválido.`);
+      }
+      else {
         throw error;
       }
     }
+  }
+  async _writeFile(data) {
+    await fs.writeFile(this.path, JSON.stringify(data, null, 2));
   }
   async _writeFile(data) {
     await fs.writeFile(this.path, JSON.stringify(data, null, 2));
@@ -62,7 +72,6 @@ class FileManager {
     await this._writeFile(items);
     return deletedItem;
   };
-
 }
 
 export default FileManager;

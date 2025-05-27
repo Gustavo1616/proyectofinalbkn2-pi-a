@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "67f96ec0fac1feb1c4b0dd71",
+    "stock": 25,
+    "category": "Accesorios",
+    "price": 50,
+    "title": "Teclado mecánico",
+    "photo": "https://picsum.photos/id/10/400/300"
+  },
+  {
+    "_id": "683254e873ab9b696779be6d",
+    "title": "Smartphone X",
+    "photo": "https://picsum.photos/id/10/400/300",
+    "category": "electronics",
+    "price": 699.99,
+    "stock": 50
+  },
+  {
+    "_id": "683254e873ab9b696779be6e",
+    "title": "Auriculares Bluetooth",
+    "photo": "https://picsum.photos/id/10/400/300",
+    "category": "audio",
+    "price": 129.5,
+    "stock": 120
+  },
+  {
+    "_id": "683254e873ab9b696779be6f",
+    "title": "Smartwatch Z",
+    "photo": "https://picsum.photos/id/10/400/300",
+    "category": "wearables",
+    "price": 249,
+    "stock": 75
+  },
+  {
+    "_id": "683254e873ab9b696779be70",
+    "title": "Teclado Mecánico",
+    "photo": "https://picsum.photos/id/10/400/300",
+    "category": "computer_accessories",
+    "price": 85,
+    "stock": 90
+  },
+  {
+    "_id": "683254e873ab9b696779be71",
+    "title": "Mouse Inalámbrico",
+    "photo": "https://picsum.photos/id/10/400/300",
+    "category": "computer_accessories",
+    "price": 35.75,
+    "stock": 200
+  }
+]

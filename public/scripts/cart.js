@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Hubo un error al agregar el producto al carrito: ' + (data.message || 'Error desconocido.'));
             }
         } catch (error) {
-            console.error('Error de red o JavaScript al agregar al carrito:', error);
             alert('Error de conexión. Intenta de nuevo más tarde.');
         }
     }

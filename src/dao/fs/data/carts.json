@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "cface0b6b8c69ea26d022895",
+    "user_id": "a4d5a0b3c56695a8dc5ee64d",
+    "products": [
+      {
+        "product_id": "683254e873ab9b696779be6d",
+        "quantity": 1
+      },
+      {
+        "product_id": "683254e873ab9b696779be6f",
+        "quantity": 12
+      }
+    ],
+    "state": "reserved",
+    "createdAt": "2025-05-26T23:05:48.165Z",
+    "updatedAt": "2025-05-26T23:06:35.170Z"
+  }
+]

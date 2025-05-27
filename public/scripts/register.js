@@ -9,7 +9,7 @@ document.querySelector("#register").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-      Credential: "include",
+      Credentials: "include",
     };
     const url = "/api/auth/register";
     let response = await fetch(url, opts);

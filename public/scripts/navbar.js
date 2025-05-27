@@ -1,6 +1,5 @@
 const selector = document.querySelector("#opts");
 
-
 const isOnline = async () => {
   try {
     const url = "/api/auth/online";

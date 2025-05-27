@@ -12,7 +12,7 @@ import router from "./src/routers/index.router.js";
 
 const server = express();
 const port = process.env.PORT;
-const ready = async () => console.log('server ready on port ' + port);
+const ready = () => {console.log("server ready on port " + port);};
 server.listen(port, ready);
 
 server.engine('handlebars', engine());

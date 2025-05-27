@@ -14,7 +14,7 @@ class ViewsRouter extends CustomRouter {
     this.read("/cart/:user_id",["USER", "ADMIN"] ,cartsView);
     this.read("/register", ["PUBLIC"], registerView);
     this.read("/login", ["PUBLIC"], loginView);
-    this.read("/verify", ["USER"], verifyView);
+    this.read("/verify", ["PUBLIC"], verifyView);
   }
 }
 
